@@ -59,7 +59,7 @@ if __name__ == '__main__':
         download_dataset()
         
     elif args.task == 'track':
-        track_players(model, path_to_csv, path_to_mp4, cam)
+        track_players(args.model, path_to_csv, path_to_mp4, cam)
     
     elif args.task == 'metrics':
         

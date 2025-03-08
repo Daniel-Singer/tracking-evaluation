@@ -2,3 +2,5 @@ SportsLabKit
 clip
 torchreid
 ultralytics
+optuna
+cmaes
