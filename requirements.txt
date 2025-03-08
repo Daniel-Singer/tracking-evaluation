@@ -1,0 +1,4 @@
+SportsLabKit
+clip
+torchreid
+ultralytics
