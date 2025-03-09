@@ -19,7 +19,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '--model',
         type=str,
-        choices=['yolov8x', 'yolov9e', 'yolo11x'],
+        choices=['yolov8x', 'yolov9e', 'yolo11x', 'yolov8x_custom'],
         default='yolov8x'
     )
     

@@ -7,9 +7,11 @@ def track_players(model_name=None, path_to_csv=None, path_to_mp4=None, cam=None,
         
     bbdf_gt = slk.load_df(path_to_csv)
     
+    n_of_frames = 750
+    
     if bbdf_gt.index[0] == 0:
         bbdf_gt.index += 1
-    bbdf_gt = bbdf_gt
+    bbdf_gt = bbdf_gt[:n_of_frames]
     
     # setup tracker
     det_model = slk.detection_model.load(
@@ -57,7 +59,7 @@ def track_players(model_name=None, path_to_csv=None, path_to_mp4=None, cam=None,
         det_model = slk.detection_model.load(
             model_name=model_name,
             model=f'{model_name}.pt',
-            conf=0.25,
+            conf=0.2,
             iou=0.6,
             imgsz=960,
             device='mps',
@@ -151,14 +153,17 @@ def track_players(model_name=None, path_to_csv=None, path_to_mp4=None, cam=None,
     else:
         print('Please provide tracker type')
         
-    frames = cam
+    frames = cam[:n_of_frames]
     
     bbdf_pred = tracker.track(frames)
-    hota = slk.metrics.hota_score(bbdf_gt, bbdf_pred)
+    hota = slk.metrics.hota_score(bbdf_gt, bbdf_pred)['HOTA']
+    mota = slk.metrics.mota_score(bbdf_pred, bbdf_gt)['MOTA']
+    idf1 = slk.metrics.identity_score(bbdf_pred, bbdf_gt)
     
-    mota = slk.metrics.mota_score(bbdf_gt, bbdf_pred)
     
-    print(mota)
+    print(f"MOTA: {mota}")
+    print(f"HOTA: {hota}")
+    print(f"IDF1: {idf1}")
     
 
     
