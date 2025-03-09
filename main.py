@@ -26,9 +26,9 @@ if __name__ == '__main__':
     parser.add_argument(
         '--task', 
         type=str, 
-        choices=['download', 'track', 'metrics'], 
+        choices=['download', 'track', 'metrics', 'detect'], 
         help='Please provide information about which task to execute',
-        required=True
+        default='detect'
     )
     
     parser.add_argument(
@@ -36,6 +36,14 @@ if __name__ == '__main__':
         type=str,
         choices=['mota', 'hota', 'id'],
         help='Please provide information about the desired metric',
+    )
+    
+    parser.add_argument(
+        '--tracker_type',
+        type=str,
+        choices=['SORT', 'Deep', 'Byte'],
+        help='Please provide tracker type',
+        default='SORT'
     )
     
     args = parser.parse_args()
@@ -54,12 +62,14 @@ if __name__ == '__main__':
     
     model = define_model(args.model)
     
-    # download dataset from kaggle
     if args.task == 'download':
         download_dataset()
         
+    elif args.task == 'detect':
+        print('detect')
+        
     elif args.task == 'track':
-        track_players(args.model, path_to_csv, path_to_mp4, cam)
+        track_players(args.model, path_to_csv, path_to_mp4, cam, args.tracker_type)
     
     elif args.task == 'metrics':
         

@@ -4,3 +4,5 @@ torchreid
 ultralytics
 optuna
 cmaes
+numpy
+wheel
