@@ -7,11 +7,6 @@ from download import download_dataset, define_model
 from detect import track_players
 
 
-# save_path = "assets/tracking_results.mp4"
-# res.visualize_frames(cam.video_path, save_path)
-
-# The tracking data is now ready for analysis
-
 if __name__ == '__main__':
     
     parser = argparse.ArgumentParser(description='Arguments needed to determine which function to execute')
